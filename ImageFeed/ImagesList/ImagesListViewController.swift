@@ -9,9 +9,7 @@ import UIKit
 
 class ImagesListViewController: UIViewController {
     @IBOutlet private var tableView: UITableView!
-    
-    @IBOutlet weak var buttonTest: UIButton!
-    
+        
     private let photosName: [String] = Array(0..<15).map { "photo\($0)" }
     
     private lazy var dateFormatter: DateFormatter = {
@@ -55,16 +53,21 @@ extension ImagesListViewController {
         guard let image = UIImage(named: photosName[indexPath.row]) else {
             return
         }
+
         cell.cellImage.image = image
         cell.dateLabel.text = dateFormatter.string(from: Date())
-        
+
         let isLiked = indexPath.row % 2 == 0
         let likeImage = isLiked ? UIImage(named: "like_button_on") : UIImage(named: "like_button_off")
         cell.likeButton.setImage(likeImage, for: .normal)
     }
 }
+
+
+
 extension ImagesListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { }
+
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         guard let image = UIImage(named: photosName[indexPath.row]) else {
             return 0
@@ -78,3 +81,4 @@ extension ImagesListViewController: UITableViewDelegate {
         return cellHeight
     }
 }
+
