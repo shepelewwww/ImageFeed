@@ -16,19 +16,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="f4X-fn-7CN">
-                                <rect key="frame" x="20" y="96" width="374" height="732"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" pagingEnabled="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="f4X-fn-7CN">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" name="YP Black"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="ImagesListCell" rowHeight="224" id="hhH-FC-1ZO" customClass="ImagesListCell" customModule="ImageFeed" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="50" width="374" height="224"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ImagesListCell" rowHeight="220" id="VS3-zg-I2d" customClass="ImagesListCell" customModule="ImageFeed" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="50" width="414" height="220"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hhH-FC-1ZO" id="LCi-dA-3Zz" customClass="ImagesListCell" customModule="ImageFeed" customModuleProvider="target">
-                                            <rect key="frame" x="0.0" y="0.0" width="374" height="224"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="VS3-zg-I2d" id="F9x-mN-315">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="220"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" image="photo0" translatesAutoresizingMaskIntoConstraints="NO" id="ms5-8a-Cx1" userLabel="Cell Image">
-                                                    <rect key="frame" x="20" y="15" width="334" height="194"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="photo0" translatesAutoresizingMaskIntoConstraints="NO" id="4cw-Wz-iF9">
+                                                    <rect key="frame" x="20" y="0.0" width="374" height="220"/>
+                                                    <color key="backgroundColor" name="YP Black"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                             <integer key="value" value="16"/>
@@ -36,35 +37,35 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="3 апреля 2026" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="goy-Bf-VJW" userLabel="dateLabel">
-                                                    <rect key="frame" x="8" y="200" width="91.5" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bx-qM-f5l">
+                                                    <rect key="frame" x="8" y="192" width="33" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KpZ-uM-pq0" userLabel="likeButton">
-                                                    <rect key="frame" x="330" y="0.0" width="44" height="44"/>
-                                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                    <state key="normal" image="like_button_on"/>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2s5-lU-qTU">
+                                                    <rect key="frame" x="346" y="0.0" width="68" height="58"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="like_button_off"/>
                                                 </button>
                                             </subviews>
                                             <color key="backgroundColor" name="YP Black"/>
                                             <constraints>
-                                                <constraint firstItem="goy-Bf-VJW" firstAttribute="bottom" secondItem="ms5-8a-Cx1" secondAttribute="bottom" constant="8" id="EAs-Xi-2Hl"/>
-                                                <constraint firstItem="ms5-8a-Cx1" firstAttribute="bottom" secondItem="LCi-dA-3Zz" secondAttribute="bottomMargin" id="FOl-bL-usg"/>
-                                                <constraint firstItem="KpZ-uM-pq0" firstAttribute="trailing" secondItem="ms5-8a-Cx1" secondAttribute="trailing" id="GlK-lR-tNk"/>
-                                                <constraint firstItem="ms5-8a-Cx1" firstAttribute="top" secondItem="LCi-dA-3Zz" secondAttribute="topMargin" id="o3V-0s-0FA"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ms5-8a-Cx1" secondAttribute="trailing" id="qsW-fd-Asx"/>
-                                                <constraint firstItem="goy-Bf-VJW" firstAttribute="leading" secondItem="ms5-8a-Cx1" secondAttribute="leading" constant="8" id="qwB-b3-6yf"/>
-                                                <constraint firstItem="KpZ-uM-pq0" firstAttribute="top" secondItem="ms5-8a-Cx1" secondAttribute="top" id="ueL-bV-5KX"/>
-                                                <constraint firstItem="ms5-8a-Cx1" firstAttribute="leading" secondItem="LCi-dA-3Zz" secondAttribute="leadingMargin" id="ykV-95-1Y8"/>
+                                                <constraint firstItem="4cw-Wz-iF9" firstAttribute="top" secondItem="F9x-mN-315" secondAttribute="top" constant="4" id="REV-nW-c7I"/>
+                                                <constraint firstAttribute="bottom" secondItem="4cw-Wz-iF9" secondAttribute="bottom" constant="4" id="Yh3-6E-W15"/>
+                                                <constraint firstItem="4cw-Wz-iF9" firstAttribute="leading" secondItem="F9x-mN-315" secondAttribute="leading" id="ZM1-Vs-p2A"/>
+                                                <constraint firstItem="2s5-lU-qTU" firstAttribute="trailing" secondItem="4cw-Wz-iF9" secondAttribute="trailing" id="fcc-wD-D9y"/>
+                                                <constraint firstItem="0Bx-qM-f5l" firstAttribute="bottom" secondItem="4cw-Wz-iF9" secondAttribute="bottom" constant="-8" id="kD9-V2-JCf"/>
+                                                <constraint firstItem="2s5-lU-qTU" firstAttribute="top" secondItem="4cw-Wz-iF9" secondAttribute="top" id="n39-NF-XKO"/>
+                                                <constraint firstAttribute="trailing" secondItem="4cw-Wz-iF9" secondAttribute="trailing" id="pM9-d4-rwo"/>
+                                                <constraint firstItem="0Bx-qM-f5l" firstAttribute="leading" secondItem="4cw-Wz-iF9" secondAttribute="leading" constant="8" id="qxF-pf-ifk"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="YP Black"/>
                                         <connections>
-                                            <outlet property="cellImage" destination="ms5-8a-Cx1" id="wI2-Kc-vpt"/>
-                                            <outlet property="dateLabel" destination="goy-Bf-VJW" id="c2c-YH-qND"/>
-                                            <outlet property="likeButton" destination="KpZ-uM-pq0" id="6Fr-Ws-SJs"/>
+                                            <outlet property="cellImage" destination="4cw-Wz-iF9" id="VtF-1G-K18"/>
+                                            <outlet property="dateLabel" destination="0Bx-qM-f5l" id="cgX-zz-U8h"/>
+                                            <outlet property="likeButton" destination="2s5-lU-qTU" id="Lnu-hq-wmN"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -93,7 +94,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="like_button_on" width="44" height="44"/>
+        <image name="like_button_off" width="44" height="44"/>
         <image name="photo0" width="1600" height="1059"/>
         <namedColor name="YP Black">
             <color red="0.10196078431372549" green="0.10588235294117647" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
