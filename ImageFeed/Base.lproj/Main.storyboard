@@ -37,21 +37,31 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </imageView>
+                                                <view contentMode="scaleAspectFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nn2-tW-PsO">
+                                                    <rect key="frame" x="20" y="192" width="374" height="30"/>
+                                                    <color key="backgroundColor" red="0.098799999999999999" green="0.10243999999999999" blue="0.13" alpha="0.01" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="OBB-Pn-DW0"/>
+                                                    </constraints>
+                                                </view>
+                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2s5-lU-qTU">
+                                                    <rect key="frame" x="346" y="0.0" width="68" height="58"/>
+                                                    <state key="normal" title="Button"/>
+                                                    <buttonConfiguration key="configuration" style="plain" image="like_button_off"/>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bx-qM-f5l">
                                                     <rect key="frame" x="8" y="192" width="33" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2s5-lU-qTU">
-                                                    <rect key="frame" x="346" y="0.0" width="68" height="58"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <buttonConfiguration key="configuration" style="plain" image="like_button_off"/>
-                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" name="YP Black"/>
                                             <constraints>
+                                                <constraint firstItem="nn2-tW-PsO" firstAttribute="trailing" secondItem="4cw-Wz-iF9" secondAttribute="trailing" id="DUz-6L-fiR"/>
                                                 <constraint firstItem="4cw-Wz-iF9" firstAttribute="top" secondItem="F9x-mN-315" secondAttribute="top" constant="4" id="REV-nW-c7I"/>
+                                                <constraint firstItem="nn2-tW-PsO" firstAttribute="leading" secondItem="4cw-Wz-iF9" secondAttribute="leading" id="S7Q-Ka-LMQ"/>
+                                                <constraint firstItem="nn2-tW-PsO" firstAttribute="bottom" secondItem="4cw-Wz-iF9" secondAttribute="bottom" id="TNq-9c-UWR"/>
                                                 <constraint firstAttribute="bottom" secondItem="4cw-Wz-iF9" secondAttribute="bottom" constant="4" id="Yh3-6E-W15"/>
                                                 <constraint firstItem="4cw-Wz-iF9" firstAttribute="leading" secondItem="F9x-mN-315" secondAttribute="leading" id="ZM1-Vs-p2A"/>
                                                 <constraint firstItem="2s5-lU-qTU" firstAttribute="trailing" secondItem="4cw-Wz-iF9" secondAttribute="trailing" id="fcc-wD-D9y"/>
@@ -65,6 +75,7 @@
                                         <connections>
                                             <outlet property="cellImage" destination="4cw-Wz-iF9" id="VtF-1G-K18"/>
                                             <outlet property="dateLabel" destination="0Bx-qM-f5l" id="cgX-zz-U8h"/>
+                                            <outlet property="gradientView" destination="nn2-tW-PsO" id="ung-et-J3c"/>
                                             <outlet property="likeButton" destination="2s5-lU-qTU" id="Lnu-hq-wmN"/>
                                         </connections>
                                     </tableViewCell>
