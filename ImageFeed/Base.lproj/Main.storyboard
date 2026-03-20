@@ -177,8 +177,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="n2s-AM-xwl"/>
                     <connections>
-                        <outlet property="ScrollView" destination="dxY-lv-T7Q" id="HB8-fI-V5g"/>
                         <outlet property="imageView" destination="Dpw-zp-bg1" id="GuU-JM-lfo"/>
+                        <outlet property="scrollView" destination="dxY-lv-T7Q" id="dRm-Nf-n3j"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vCk-R6-L2Q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
