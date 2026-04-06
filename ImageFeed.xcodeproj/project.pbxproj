@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		991EB87B2F7E7C9600CEA2E7 /* ProgressHUD in Frameworks */ = {isa = PBXBuildFile; productRef = 991EB87A2F7E7C9600CEA2E7 /* ProgressHUD */; };
 		9969557F2F7A6A3800E57F4E /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9969557E2F7A6A3800E57F4E /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +72,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9969557F2F7A6A3800E57F4E /* WebKit.framework in Frameworks */,
+				991EB87B2F7E7C9600CEA2E7 /* ProgressHUD in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -140,6 +142,7 @@
 			);
 			name = ImageFeed;
 			packageProductDependencies = (
+				991EB87A2F7E7C9600CEA2E7 /* ProgressHUD */,
 			);
 			productName = ImageFeed;
 			productReference = 993F65202F543E7A00711DDC /* ImageFeed.app */;
@@ -223,6 +226,9 @@
 			);
 			mainGroup = 993F65172F543E7A00711DDC;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				991EB8792F7E7AAD00CEA2E7 /* XCRemoteSwiftPackageReference "ProgressHUD" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 993F65212F543E7A00711DDC /* Products */;
 			projectDirPath = "";
@@ -612,6 +618,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		991EB8792F7E7AAD00CEA2E7 /* XCRemoteSwiftPackageReference "ProgressHUD" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/relatedcode/ProgressHUD";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		991EB87A2F7E7C9600CEA2E7 /* ProgressHUD */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 991EB8792F7E7AAD00CEA2E7 /* XCRemoteSwiftPackageReference "ProgressHUD" */;
+			productName = ProgressHUD;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 993F65182F543E7A00711DDC /* Project object */;
 }

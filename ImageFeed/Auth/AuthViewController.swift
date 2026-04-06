@@ -1,7 +1,7 @@
 import UIKit
 
 protocol AuthViewControllerDelegate: AnyObject {
-    func didAuthenticate(_ vc: AuthViewController)
+    func didAuthenticate(_ vc: AuthViewController, token: String)
 }
 
 final class AuthViewController: UIViewController {
@@ -40,24 +40,34 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        vc.dismiss(animated: true) // закрываем WebView
-        
+
+        // Скрываем WebViewViewController
+        vc.dismiss(animated: true)
+
+        // Показываем индикатор загрузки
+        UIBlockingProgressHUD.show()
+
         fetchOAuthToken(code) { [weak self] result in
-            guard let self = self else { return }
-            
+            // Скрываем индикатор загрузки
+            UIBlockingProgressHUD.dismiss()
+
+            guard let self else { return }
+
             switch result {
             case .success(let token):
-                
-                OAuth2TokenStorage.shared.token = token
-                
-                self.delegate?.didAuthenticate(self)
-                
-            case .failure(let error):
-                print("❌ OAuth token fetch error: \(error)")
+                self.delegate?.didAuthenticate(self, token: token)
+            case .failure:
+                let alert = UIAlertController(
+                    title: "Ошибка",
+                    message: "Не удалось войти. Попробуйте ещё раз.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "Ок", style: .default))
+                self.present(alert, animated: true)
             }
         }
     }
-    
+
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         vc.dismiss(animated: true)
     }

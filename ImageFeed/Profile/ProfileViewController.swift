@@ -2,15 +2,18 @@ import UIKit
 
 final class ProfileViewController: UIViewController {
     
+    
     // MARK: - Lifecycle
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = UIColor(named: "YP Black")
         setupUI()
 
+        if let profile = ProfileService.shared.profile {
+            updateProfileDetails(with: profile)
+        }
     }
+
+
     // MARK: - Setup UI
     
     private func setupUI() {
@@ -116,5 +119,17 @@ final class ProfileViewController: UIViewController {
             logoutButton.widthAnchor.constraint(equalToConstant: 44),
             logoutButton.heightAnchor.constraint(equalToConstant: 44)
         ])
+    }
+    
+    private func updateProfileDetails(with profile: Profile) {
+        nameLabel.text = profile.name.isEmpty
+            ? "Имя не указано"
+            : profile.name
+        loginLabel.text = profile.loginName.isEmpty
+            ? "@неизвестный_пользователь"
+            : profile.loginName
+        descriptionLabel.text = (profile.bio?.isEmpty ?? true)
+            ? "Профиль не заполнен"
+            : profile.bio
     }
 }
