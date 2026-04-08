@@ -1,19 +1,60 @@
 import UIKit
+import Kingfisher
+
+// MARK: - ProfileViewController
 
 final class ProfileViewController: UIViewController {
     
+    // MARK: - Private Properties
+    
+    private var profileImageServiceObserver: NSObjectProtocol?
+    
     
     // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(named: "YP Black")
         setupUI()
-
+        
         if let profile = ProfileService.shared.profile {
             updateProfileDetails(with: profile)
+            fetchAvatar(for: profile.username)
+        }
+        
+        profileImageServiceObserver = NotificationCenter.default
+            .addObserver(
+                forName: ProfileImageService.didChangeNotification,
+                object: nil,
+                queue: .main
+            ) { [weak self] _ in
+                self?.updateAvatar()
+            }
+    }
+    
+    // MARK: - Avatar
+    
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+        
+        profileImageView.kf.setImage(with: url)
+    }
+    
+    private func fetchAvatar(for username: String) {
+        ProfileImageService.shared.fetchProfileImageURL(username: username) { result in
+            switch result {
+            case .success:
+                break
+            case .failure(let error):
+                print("[ProfileViewController]: Ошибка загрузки аватарки - \(error)")
+            }
         }
     }
-
-
+    
+    
     // MARK: - Setup UI
     
     private func setupUI() {
@@ -121,15 +162,17 @@ final class ProfileViewController: UIViewController {
         ])
     }
     
+    // MARK: - Profile
+    
     private func updateProfileDetails(with profile: Profile) {
         nameLabel.text = profile.name.isEmpty
-            ? "Имя не указано"
-            : profile.name
+        ? "Имя не указано"
+        : profile.name
         loginLabel.text = profile.loginName.isEmpty
-            ? "@неизвестный_пользователь"
-            : profile.loginName
+        ? "@неизвестный_пользователь"
+        : profile.loginName
         descriptionLabel.text = (profile.bio?.isEmpty ?? true)
-            ? "Профиль не заполнен"
-            : profile.bio
+        ? "Профиль не заполнен"
+        : profile.bio
     }
 }

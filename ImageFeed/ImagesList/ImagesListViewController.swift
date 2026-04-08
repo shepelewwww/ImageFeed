@@ -1,9 +1,18 @@
 import UIKit
 
+// MARK: - ImagesListViewController
+
 final class ImagesListViewController: UIViewController {
+    
+    // MARK: - Constants
+    
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     
+    // MARK: - IBOutlets
+    
     @IBOutlet private var tableView: UITableView!
+    
+    // MARK: - Private Properties
     
     private let photosName: [String] = Array(0..<20).map { "photo\($0)" }
     
@@ -14,11 +23,15 @@ final class ImagesListViewController: UIViewController {
         return formatter
     }()
     
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.contentInset = UIEdgeInsets(top: 12, left: 0, bottom: 12, right: 0)
     }
+    
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showSingleImageSegueIdentifier {
@@ -39,6 +52,8 @@ final class ImagesListViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension ImagesListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         photosName.count
@@ -57,6 +72,8 @@ extension ImagesListViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension ImagesListViewController {
     func configCell(for cell: ImagesListCell, with indexPath: IndexPath) {
         guard let image = UIImage(named: photosName[indexPath.row]) else {
@@ -72,7 +89,7 @@ extension ImagesListViewController {
     }
 }
 
-
+// MARK: - Private Methods
 
 extension ImagesListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
