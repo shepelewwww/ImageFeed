@@ -1,10 +1,3 @@
-//
-//  ProfileViewController.swift
-//  ImageFeed
-//
-//  Created by Артем Шепелев on 5.03.2026.
-//
-
 import UIKit
 
 final class ProfileViewController: UIViewController {

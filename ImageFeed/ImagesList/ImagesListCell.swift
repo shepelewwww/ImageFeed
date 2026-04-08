@@ -1,10 +1,3 @@
-//
-//  ImagesListCell.swift
-//  ImageFeed
-//
-//  Created by Артем Шепелев on 1.03.2026.
-//
-
 import UIKit
 
 final class ImagesListCell: UITableViewCell {
