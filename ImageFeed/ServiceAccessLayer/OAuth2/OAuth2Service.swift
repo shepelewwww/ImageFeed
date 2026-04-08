@@ -1,94 +1,101 @@
 import Foundation
 
+// MARK: - Auth Service Error
 
-struct OAuthTokenResponseBody: Decodable {
-    let accessToken: String
-    
-    enum CodingKeys: String, CodingKey {
-        case accessToken = "access_token"
-    }
+enum AuthServiceError: Error {
+    case invalidRequest
 }
 
+// MARK: - OAuth2Service
+
 final class OAuth2Service {
+    
+    // MARK: - Singleton
     static let shared = OAuth2Service()
     
-    private init() {}
+    // MARK: - Dependencies
+    private let dataStorage = OAuth2TokenStorage.shared
+    private let urlSession = URLSession.shared
+    
+    // MARK: - Private Properties
+    private var task: URLSessionTask?
+    private var lastCode: String?
+    
+    // MARK: - Public Properties
+    private(set) var authToken: String? {
+        get { return dataStorage.token }
+        set { dataStorage.token = newValue }
+    }
+    
+    // MARK: - Init
+    private init() { }
+    
+    // MARK: - Public Methods
     
     func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
-
-        guard let url = URL(string: "https://unsplash.com/oauth/token") else {
-            let error = NSError(domain: "Invalid URL", code: -1)
-            print("❌ [OAuth2Service] Invalid URL: \(error)")
-            completion(.failure(error))
+        assert(Thread.isMainThread)
+        
+        guard lastCode != code else {
+            completion(.failure(AuthServiceError.invalidRequest))
             return
         }
+        
+        task?.cancel()
+        lastCode = code
+        
+        guard let request = makeOAuthTokenRequest(code: code) else {
+            completion(.failure(AuthServiceError.invalidRequest))
+            return
+        }
+        
+        task = urlSession.objectTask(for: request) { [weak self] (result: Result<OAuthTokenResponseBody, Error>) in
+            guard let self = self else { return }
+            
+            switch result {
+            case .success(let body):
+                self.authToken = body.accessToken
+                print("[OAuth2Service.fetchOAuthToken]: Успешно получили токен")
+                completion(.success(body.accessToken))
+            case .failure(let error):
+                print("[OAuth2Service.fetchOAuthToken]: Ошибка - \(error)")
+                completion(.failure(error))
+            }
+            self.lastCode = nil
+        }
+        
+        task?.resume()
+    }
+    
+    // MARK: - Private Methods
+    
+    private func makeOAuthTokenRequest(code: String) -> URLRequest? {
+        guard var urlComponents = URLComponents(string: "https://unsplash.com/oauth/token") else {
+            assertionFailure("Failed to create URL")
+            return nil
+        }
+        
+        urlComponents.queryItems = [
+            URLQueryItem(name: "client_id", value: Constants.accessKey),
+            URLQueryItem(name: "client_secret", value: Constants.secretKey),
+            URLQueryItem(name: "redirect_uri", value: Constants.redirectURI),
+            URLQueryItem(name: "code", value: code),
+            URLQueryItem(name: "grant_type", value: "authorization_code"),
+        ]
+        
+        guard let url = urlComponents.url else { return nil }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField: "Content-Type")
+        return request
+    }
+    
+    // MARK: - Models
+    
+    private struct OAuthTokenResponseBody: Codable {
+        let accessToken: String
         
-        let parameters: [String: String] = [
-            "client_id": Constants.accessKey,
-            "client_secret": Constants.secretKey,
-            "redirect_uri": Constants.redirectURI,
-            "code": code,
-            "grant_type": "authorization_code"
-        ]
-        
-        guard let httpBody = parameters
-            .map({ "\($0.key)=\($0.value)" })
-            .joined(separator: "&")
-            .data(using: .utf8) else {
-            let error = NSError(domain: "Invalid HTTP body", code: -2)
-            print("❌ [OAuth2Service] Failed to encode parameters: \(error)")
-            completion(.failure(error))
-            return
+        enum CodingKeys: String, CodingKey {
+            case accessToken = "access_token"
         }
-        request.httpBody = httpBody
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            DispatchQueue.main.async {
-
-                if let error = error {
-                    print("❌ [OAuth2Service] Network error: \(error)")
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let httpResponse = response as? HTTPURLResponse else {
-                    let error = NSError(domain: "Invalid response", code: -3)
-                    print("❌ [OAuth2Service] Invalid HTTP response: \(error)")
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard 200..<300 ~= httpResponse.statusCode else {
-                    let error = NSError(domain: "HTTP Error", code: httpResponse.statusCode)
-                    print("❌ [OAuth2Service] Unsplash API returned status code \(httpResponse.statusCode)")
-                    completion(.failure(error))
-                    return
-                }
-                
-                guard let data = data else {
-                    let error = NSError(domain: "No data", code: -4)
-                    print("❌ [OAuth2Service] No data received: \(error)")
-                    completion(.failure(error))
-                    return
-                }
-                
-                do {
-                    let decoded = try JSONDecoder().decode(OAuthTokenResponseBody.self, from: data)
-                    
-                    OAuth2TokenStorage.shared.token = decoded.accessToken
-                    
-                    completion(.success(decoded.accessToken))
-                } catch {
-                    print("❌ [OAuth2Service] Failed to decode OAuthTokenResponseBody: \(error)")
-                    completion(.failure(error))
-                }
-            }
-        }
-        
-        task.resume()
     }
 }
