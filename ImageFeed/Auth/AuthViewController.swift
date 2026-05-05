@@ -1,20 +1,31 @@
 import UIKit
 
+// MARK: - AuthViewControllerDelegat
+
 protocol AuthViewControllerDelegate: AnyObject {
-    func didAuthenticate(_ vc: AuthViewController)
+    func didAuthenticate(_ vc: AuthViewController, token: String)
 }
 
+// MARK: - AuthViewController
+
 final class AuthViewController: UIViewController {
+    
+    // MARK: - Properties
+    
     private let showWebViewSegueIdentifier = "ShowWebView"
     private let oauth2Service = OAuth2Service.shared
     
     weak var delegate: AuthViewControllerDelegate?
+    
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureBackButton()
     }
+    
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == showWebViewSegueIdentifier {
@@ -30,6 +41,8 @@ final class AuthViewController: UIViewController {
         }
     }
     
+    // MARK: - UI
+    
     private func configureBackButton() {
         navigationController?.navigationBar.backIndicatorImage = UIImage(named: "nav_back_button")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "nav_back_button")
@@ -38,22 +51,27 @@ final class AuthViewController: UIViewController {
     }
 }
 
+// MARK: - WebViewViewControllerDelegate
+
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        vc.dismiss(animated: true) // закрываем WebView
+        
+        vc.dismiss(animated: true)
+        
+        UIBlockingProgressHUD.show()
         
         fetchOAuthToken(code) { [weak self] result in
-            guard let self = self else { return }
+            
+            UIBlockingProgressHUD.dismiss()
+            
+            guard let self else { return }
             
             switch result {
             case .success(let token):
+                self.delegate?.didAuthenticate(self, token: token)
+            case .failure:
                 
-                OAuth2TokenStorage.shared.token = token
-                
-                self.delegate?.didAuthenticate(self)
-                
-            case .failure(let error):
-                print("❌ OAuth token fetch error: \(error)")
+                self.showLoginErrorAlert()
             }
         }
     }
@@ -63,10 +81,26 @@ extension AuthViewController: WebViewViewControllerDelegate {
     }
 }
 
+// MARK: - Networking
+
 extension AuthViewController {
     private func fetchOAuthToken(_ code: String, completion: @escaping (Result<String, Error>) -> Void) {
         oauth2Service.fetchOAuthToken(code) { result in
             completion(result)
         }
+    }
+}
+
+// MARK: - Alerts
+
+extension AuthViewController {
+    func showLoginErrorAlert() {
+        let alert = UIAlertController(
+            title: "Что-то пошло не так",
+            message: "Не удалось войти в систему",
+            preferredStyle: .alert
+        )
+        alert.addAction(UIAlertAction(title: "Ок", style: .default))
+        present(alert, animated: true)
     }
 }
