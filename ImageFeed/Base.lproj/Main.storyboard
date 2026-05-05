@@ -49,6 +49,9 @@
                                                     <rect key="frame" x="346" y="0.0" width="68" height="58"/>
                                                     <state key="normal" title="Button"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="like_button_off"/>
+                                                    <connections>
+                                                        <action selector="likeButtonTapped:" destination="VS3-zg-I2d" eventType="touchUpInside" id="pFp-6a-gWd"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Bx-qM-f5l">
                                                     <rect key="frame" x="8" y="192" width="33" height="16"/>

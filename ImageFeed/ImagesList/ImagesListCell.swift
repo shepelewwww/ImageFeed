@@ -1,6 +1,14 @@
 import UIKit
+import Kingfisher
 
 // MARK: - ImagesListCell
+
+protocol ImagesListCellDelegate: AnyObject {
+
+    func imageListCellDidTapLike(_ cell: ImagesListCell)
+
+}
+
 
 final class ImagesListCell: UITableViewCell {
     
@@ -8,12 +16,15 @@ final class ImagesListCell: UITableViewCell {
     
     static let reuseIdentifier = "ImagesListCell"
     
+    weak var delegate: ImagesListCellDelegate?
+    
     // MARK: - IBOutlets
     
     @IBOutlet weak var gradientView: UIView!
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var cellImage: UIImageView!
+    
     
     // MARK: - Private Properties
     
@@ -28,6 +39,24 @@ final class ImagesListCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         gradientLayer.frame = gradientView.bounds
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        cellImage.kf.cancelDownloadTask()
+        cellImage.image = nil
+    }
+    
+    @IBAction func likeButtonTapped(_ sender: UIButton) {
+        delegate?.imageListCellDidTapLike(self)
+    }
+    
+    func setIsLiked(_ isLiked: Bool) {
+        let image = isLiked
+            ? UIImage(named: "like_button_on")
+            : UIImage(named: "like_button_off")
+        
+        likeButton.setImage(image, for: .normal)
     }
     
     // MARK: - Private Methods

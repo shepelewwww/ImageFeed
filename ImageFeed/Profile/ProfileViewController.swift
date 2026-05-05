@@ -5,6 +5,31 @@ import Kingfisher
 
 final class ProfileViewController: UIViewController {
     
+    // MARK: -
+    
+    @objc private func didTapLogoutButton() {
+        
+        let alert = UIAlertController(
+            title: "Пока, пока!",
+            message: "Вы точно хотите выйти?",
+            preferredStyle: .alert
+        )
+        
+        let yesAction = UIAlertAction(title: "Да", style: .destructive) { _ in
+            ProfileLogoutService.shared.logout()
+            
+            guard let window = UIApplication.shared.windows.first else { return }
+            
+            let splashVC = SplashViewController()
+            window.rootViewController = splashVC
+        }
+        
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel))
+        alert.addAction(yesAction)
+        
+        present(alert, animated: true)
+    }
+    
     // MARK: - Private Properties
     
     private var profileImageServiceObserver: NSObjectProtocol?
@@ -153,7 +178,13 @@ final class ProfileViewController: UIViewController {
     
     private func setupLogoutButton() {
         view.addSubview(logoutButton)
-        
+
+        logoutButton.addTarget(
+            self,
+            action: #selector(didTapLogoutButton),
+            for: .touchUpInside
+        )
+
         NSLayoutConstraint.activate([
             logoutButton.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor),
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
